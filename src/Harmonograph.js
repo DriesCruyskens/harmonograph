@@ -3,7 +3,8 @@ import * as paper from 'paper';
 import { saveAs } from 'file-saver';
 
 export default class Harmonograph {
-
+    // http://www.walkingrandomly.com/?p=151
+    // https://en.wikipedia.org/wiki/Harmonograph
     constructor(canvas_id) {
         this.params = {
             strokeWidth: 1,
@@ -58,7 +59,6 @@ export default class Harmonograph {
     }
 
     draw() {
-        // https://en.wikipedia.org/wiki/Harmonograph
 
         let x, y
         let path = new paper.Path()
