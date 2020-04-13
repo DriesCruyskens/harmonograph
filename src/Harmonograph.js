@@ -4,32 +4,31 @@ import { saveAs } from 'file-saver';
 import { makeNoise3D } from "open-simplex-noise";
 
 export default class Harmonograph {
-    // http://www.walkingrandomly.com/?p=151
-    // https://en.wikipedia.org/wiki/Harmonograph 
+    // https://en.wikipedia.org/wiki/Harmonograph
     constructor(canvas_id) {
         this.params = {
+            a1: 160,
+            f1: 3,
+            p1: 0.277,
+            d1: 0.001,
+            a2: 160,
+            f2: 5,
+            p2: 2.979,
+            d2: 0.003,
+            a3: 160,
+            f3: 3,
+            p3: 0,
+            d3: 0.004,
+            a4: 160,
+            f4: 2,
+            p4: 6.283,
+            d4: 0.,
             strokeWidth: 1,
             t_max: 500,
             t_incr: .01,
-            a1: 160,
-            f1: 1.00,
-            p1: 1.870793683966252,
-            d1: 0.0006616579162407246,
-            a2: 160,
-            f2: 4.,
-            p2: 0.9700411694639827,
-            d2: 0.00562409228804616,
-            a3: 160,
-            f3: 1.,
-            p3: 1.247195,
-            d3: 0.0,
-            a4: 160,
-            f4: 2.,
-            p4: 5.,
-            d4: 0.,
-            smoothing: 60,
-            xMultiplier: 15,
-            yMultiplier: 15,
+            smoothing: 70,
+            xMultiplier: 30,
+            yMultiplier: 30,
         }
 
         Number.prototype.map = function (in_min, in_max, out_min, out_max) {
@@ -69,7 +68,7 @@ export default class Harmonograph {
 
         let x, y, xOffset, yOffset
         const smoothing = this.params.smoothing // easier to use
-        
+
         for (let t = 0; t < this.params.t_max; t += this.params.t_incr) {
 
             x = this.params.a1 * 
@@ -121,82 +120,82 @@ export default class Harmonograph {
 
         let harmonograph = this.gui.addFolder('harmonograph');
 
-        harmonograph.add(this.params, 'a1', 0., 500).onChange((value) => {
+        harmonograph.add(this.params, 'a1', 0., 500).step(1).onChange((value) => {
             this.params.a1 = value;
             this.reset();
         });
         
-        harmonograph.add(this.params, 'f1', 0., 10.).onChange((value) => {
+        harmonograph.add(this.params, 'f1', 0., 10.).step(1).onChange((value) => {
             this.params.f1 = value;
             this.reset();
         });
 
-        harmonograph.add(this.params, 'p1', 0., 2 * Math.PI).onChange((value) => {
+        harmonograph.add(this.params, 'p1', 0., 2 * Math.PI).step(0.001).onChange((value) => {
             this.params.p1 = value;
             this.reset();
         });
 
-        harmonograph.add(this.params, 'd1', 0., 0.01).onChange((value) => {
+        harmonograph.add(this.params, 'd1', 0., 0.01).step(0.001).onChange((value) => {
             this.params.d1 = value;
             this.reset();
         });
 
-        harmonograph.add(this.params, 'a2', 0., 500).onChange((value) => {
+        harmonograph.add(this.params, 'a2', 0., 500).step(1).onChange((value) => {
             this.params.a2 = value;
             this.reset();
         });
         
-        harmonograph.add(this.params, 'f2', 0., 10.).onChange((value) => {
+        harmonograph.add(this.params, 'f2', 0., 10.).step(1).onChange((value) => {
             this.params.f2 = value;
             this.reset();
         });
 
-        harmonograph.add(this.params, 'p2', 0., 2 * Math.PI).onChange((value) => {
+        harmonograph.add(this.params, 'p2', 0., 2 * Math.PI).step(0.001).onChange((value) => {
             this.params.p2 = value;
             this.reset();
         });
 
-        harmonograph.add(this.params, 'd2', 0., 0.01).onChange((value) => {
+        harmonograph.add(this.params, 'd2', 0., 0.01).step(0.001).onChange((value) => {
             this.params.d2 = value;
             this.reset();
         });
 
-        harmonograph.add(this.params, 'a3', 0., 500).onChange((value) => {
+        harmonograph.add(this.params, 'a3', 0., 500).step(1).onChange((value) => {
             this.params.a3 = value;
             this.reset();
         });
         
-        harmonograph.add(this.params, 'f3', 0., 10.).onChange((value) => {
+        harmonograph.add(this.params, 'f3', 0., 10.).step(1).onChange((value) => {
             this.params.f3 = value;
             this.reset();
         });
 
-        harmonograph.add(this.params, 'p3', 0., 2 * Math.PI).onChange((value) => {
+        harmonograph.add(this.params, 'p3', 0., 2 * Math.PI).step(0.001).onChange((value) => {
             this.params.p3 = value;
             this.reset();
         });
 
-        harmonograph.add(this.params, 'd3', 0., 0.01).onChange((value) => {
+        harmonograph.add(this.params, 'd3', 0., 0.01).step(0.001).onChange((value) => {
             this.params.d3 = value;
             this.reset();
         });
 
-        harmonograph.add(this.params, 'a4', 0., 500).onChange((value) => {
+        harmonograph.add(this.params, 'a4', 0., 500).step(1).onChange((value) => {
             this.params.a4 = value;
             this.reset();
         });
         
-        harmonograph.add(this.params, 'f4', 0., 10.).onChange((value) => {
+        harmonograph.add(this.params, 'f4', 0., 10.).step(1).onChange((value) => {
             this.params.f4 = value;
             this.reset();
         });
 
-        harmonograph.add(this.params, 'p4', 0., 2 * Math.PI).onChange((value) => {
+        harmonograph.add(this.params, 'p4', 0., 2 * Math.PI).step(0.001).onChange((value) => {
             this.params.p4 = value;
             this.reset();
         });
 
-        harmonograph.add(this.params, 'd4', 0., 0.01).onChange((value) => {
+        harmonograph.add(this.params, 'd4', 0., 0.01).step(0.001).onChange((value) => {
             this.params.d4 = value;
             this.reset();
         });
