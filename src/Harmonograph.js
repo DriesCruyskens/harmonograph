@@ -69,7 +69,9 @@ export default class Harmonograph {
 
         let x, y, xOffset, yOffset
         const smoothing = this.params.smoothing // easier to use
+        
         for (let t = 0; t < this.params.t_max; t += this.params.t_incr) {
+
             x = this.params.a1 * 
                 Math.sin(t * this.params.f1 + this.params.p1) * 
                 Math.exp(-this.params.d1*t) +
@@ -83,15 +85,19 @@ export default class Harmonograph {
                 Math.sin(t * this.params.f4 + this.params.p4) * 
                 Math.exp(-this.params.d4*t)
 
+            // Move to center. Scaling is already done through the a parameter (amplitude)
             x += this.center.x
             y += this.center.y
 
+            // Offset both axis, this gives a more pleasing result than only vertically or horizontally.
             xOffset = this.noise3D(x/smoothing, y/smoothing, 0)
             yOffset = this.noise3D(x/smoothing, y/smoothing, 0)
 
+            // Map is pretty unnecessary but I can parameterize them later for more interesting results.
             xOffset = xOffset.map(-1, 1, 0, 1)
             yOffset = yOffset.map(-1, 1, 0, 1)
 
+            // Multiply the noise based offset and add to x,y value.
             x += xOffset * this.params.xMultiplier
             y += yOffset * this.params.yMultiplier
 
