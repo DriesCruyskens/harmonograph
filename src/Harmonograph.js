@@ -23,6 +23,7 @@ export default class Harmonograph {
             f4: 2,
             p4: 6.283,
             d4: 0.,
+            seed: Math.random(20000),
             strokeWidth: 1,
             t_max: 500,
             t_incr: .01,
@@ -89,8 +90,8 @@ export default class Harmonograph {
             y += this.center.y
 
             // Offset both axis, this gives a more pleasing result than only vertically or horizontally.
-            xOffset = this.noise3D(x/smoothing, y/smoothing, 0)
-            yOffset = this.noise3D(x/smoothing, y/smoothing, 0)
+            xOffset = this.noise3D(x/smoothing, y/smoothing, this.params.seed)
+            yOffset = this.noise3D(x/smoothing, y/smoothing, this.params.seed)
 
             // Map is pretty unnecessary but I can parameterize them later for more interesting results.
             xOffset = xOffset.map(-1, 1, 0, 1)
@@ -201,6 +202,11 @@ export default class Harmonograph {
         });
 
         let noise = this.gui.addFolder('noise');
+
+        noise.add(this.params, 'seed', 0, 20000).onChange((value) => {
+            this.params.seed = value;
+            this.reset();
+        });
 
         noise.add(this.params, 'smoothing', 0, 150).onChange((value) => {
             this.params.smoothing = value;
