@@ -23,7 +23,7 @@ export default class Harmonograph {
             f4: 2,
             p4: 6.283,
             d4: 0.,
-            seed: Math.random(20000),
+            seed: Math.random() * 20000,
             strokeWidth: 1,
             t_max: 500,
             t_incr: .01,
@@ -49,7 +49,43 @@ export default class Harmonograph {
     }
 
     randomize() {
-        this.reset()
+        // doing it in a programmatic way for ease of use
+        let config = {
+            a1: [160, 160],
+            f1: [0, 5, "rounded"],
+            p1: [0, 2 * Math.PI],
+            d1: [0, 0.005],
+            a2: [160, 160],
+            f2: [0, 5, "rounded"],
+            p2: [0, 2 * Math.PI],
+            d2: [0, 0.005],
+            a3: [160, 160],
+            f3: [0, 5, "rounded"],
+            p3: [0, 2 * Math.PI],
+            d3: [0, 0.005],
+            a4: [160, 160],
+            f4: [0, 5, "rounded"],
+            p4: [0, 2 * Math.PI],
+            d4: [0, 0.005],
+            seed: Math.random() * 20000,
+            seed: [0, 20000],
+            smoothing: [50, 150],
+            xMultiplier: [10, 50],
+            yMultiplier: [10, 50],
+        }
+        
+        for (const param in config) {
+            // assign to v for ease of use
+            const v = config[param]
+            // choose random value between two numbers
+            let randomValue = Math.random() * (v[1] - v[0]) + v[0]
+            // round if rounded is set
+            randomValue = v[2] == undefined ? randomValue : Math.round(randomValue)
+            // assign to parameter object
+            this.params[param] = randomValue
+        }
+
+        this.reset();
     }
 
     reset() {
