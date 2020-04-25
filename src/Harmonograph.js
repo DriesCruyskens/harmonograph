@@ -50,28 +50,28 @@ export default class Harmonograph {
 
     randomize() {
         // doing it in a programmatic way for ease of use
+        // param_name: [min, max, decimal places]
         let config = {
-            a1: [160, 160],
-            f1: [0, 5, "rounded"],
-            p1: [0, 2 * Math.PI],
-            d1: [0, 0.005],
-            a2: [160, 160],
-            f2: [0, 5, "rounded"],
-            p2: [0, 2 * Math.PI],
-            d2: [0, 0.005],
-            a3: [160, 160],
-            f3: [0, 5, "rounded"],
-            p3: [0, 2 * Math.PI],
-            d3: [0, 0.005],
-            a4: [160, 160],
-            f4: [0, 5, "rounded"],
-            p4: [0, 2 * Math.PI],
-            d4: [0, 0.005],
-            seed: Math.random() * 20000,
-            seed: [0, 20000],
-            smoothing: [50, 150],
-            xMultiplier: [10, 50],
-            yMultiplier: [10, 50],
+            a1: [160, 160, 0],
+            f1: [0, 5, 0],
+            p1: [0, 2 * Math.PI, 3],
+            d1: [0, 0.005, 3],
+            a2: [160, 160, 0],
+            f2: [0, 5, 0],
+            p2: [0, 2 * Math.PI, 3],
+            d2: [0, 0.005, 3],
+            a3: [160, 160, 0],
+            f3: [0, 5, 0],
+            p3: [0, 2 * Math.PI, 3],
+            d3: [0, 0.005, 3],
+            a4: [160, 160, 0],
+            f4: [0, 5, 0],
+            p4: [0, 2 * Math.PI, 3],
+            d4: [0, 0.005, 3],
+            seed: [0, 20000, 2],
+            smoothing: [50, 150, 2],
+            xMultiplier: [10, 50, 2],
+            yMultiplier: [10, 50, 2],
         }
         
         for (const param in config) {
@@ -79,13 +79,32 @@ export default class Harmonograph {
             const v = config[param]
             // choose random value between two numbers
             let randomValue = Math.random() * (v[1] - v[0]) + v[0]
-            // round if rounded is set
-            randomValue = v[2] == undefined ? randomValue : Math.round(randomValue)
+            // round to certain decimal places (so that all params can go in filename)
+            randomValue = parseFloat(randomValue.toFixed(v[2]))
             // assign to parameter object
             this.params[param] = randomValue
         }
 
         this.reset();
+    }
+
+    // This function visually updates the dat.gui sliders. Useful after randomize has been called
+    // to see the values and tweak them further. Not doing this after every randomize because it is quite
+    // computationally expensive.
+    updateSliders() {
+        // consolidate all controllers in a single variable for easy iteration
+        // controllers are both on the gui object as in their folder object
+        let controllers = this.gui.__controllers;
+        for (const f in this.gui.__folders) {
+            Array.prototype.push.apply(controllers, this.gui.__folders[f].__controllers);
+        }
+
+        // iterate all controllers and adjusts its value if it exists in this.parameters
+        controllers.forEach(c => {
+            if (this.params[c.property] != undefined) {
+                c.setValue(this.params[c.property])
+            }
+        })
     }
 
     reset() {
@@ -239,22 +258,22 @@ export default class Harmonograph {
 
         let noise = this.gui.addFolder('noise');
 
-        noise.add(this.params, 'seed', 0, 20000).onChange((value) => {
+        noise.add(this.params, 'seed', 0, 20000).step(0.01).onChange((value) => {
             this.params.seed = value;
             this.reset();
         });
 
-        noise.add(this.params, 'smoothing', 0, 150).onChange((value) => {
+        noise.add(this.params, 'smoothing', 0, 150).step(0.01).onChange((value) => {
             this.params.smoothing = value;
             this.reset();
         });
 
-        noise.add(this.params, 'xMultiplier', 0, 30).onChange((value) => {
+        noise.add(this.params, 'xMultiplier', 0, 30).step(0.01).onChange((value) => {
             this.params.xMultiplier = value;
             this.reset();
         });
 
-        noise.add(this.params, 'yMultiplier', 0, 30).onChange((value) => {
+        noise.add(this.params, 'yMultiplier', 0, 30).step(0.01).onChange((value) => {
             this.params.yMultiplier = value;
             this.reset();
         });
@@ -266,6 +285,7 @@ export default class Harmonograph {
             this.reset();
         });
 
+        this.gui.add(this, 'updateSliders').name('update sliders');
         this.gui.add(this, 'exportSVG').name('Export SVG');
     }
 
