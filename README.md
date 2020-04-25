@@ -2,4 +2,4 @@
 
 A generative sketch using paperjs.
 
-Try it out here: [https://chrome-sandy.now.sh](https://harmonograph-nine.now.sh/)
+Try it out here: [https://harmonograph-nine.now.sh/](https://harmonograph-nine.now.sh/)
