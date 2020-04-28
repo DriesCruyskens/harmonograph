@@ -29,6 +29,7 @@
     "dat-gui": "^0.5.0",
     "file-saver": "^2.0.2",
     "open-simplex-noise": "^2.2.0",
-    "paper": "^0.12.4"
+    "paper": "^0.12.4",
+    "sketch-info": "0.0.1"
   }
 }

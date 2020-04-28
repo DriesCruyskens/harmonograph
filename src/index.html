@@ -46,6 +46,11 @@
       .infobox a svg:hover {
         opacity: 1;
       }
+
+      sketch-info {
+        --info-icon-width: 21px;
+        margin-right: 5px;
+      }
     </style>
   </head>
   <body>
@@ -89,6 +94,14 @@
           <circle cx="386.3963" cy="117.4447" r="30.2305" />
         </svg>
       </a>
+      <sketch-info>
+        <h1 slot="title">Harmonograph</h1>
+        <p>
+          The harmonograph parameters can be a bit confusing. Here is the formula they are used in:
+          <img src="https://wikimedia.org/api/rest_v1/media/math/render/svg/10d8369e6c71c95a743c90d02a80caa65dfe2fcd" class="mwe-math-fallback-image-inline" aria-hidden="true" style="margin: 1rem 0 1rem 0; background-color: white; vertical-align: -2.671ex; width:52.958ex; height:6.509ex;" alt="{\displaystyle {\begin{aligned}x(t)&amp;=A_{1}\sin(tf_{1}+p_{1})e^{-d_{1}t}+A_{2}\sin(tf_{2}+p_{2})e^{-d_{2}t},\\y(t)&amp;=A_{3}\sin(tf_{3}+p_{3})e^{-d_{3}t}+A_{4}\sin(tf_{4}+p_{4})e^{-d_{4}t}.\end{aligned}}}"><br/>
+          More information can be found on the <a rel="noreferrer noopener" style="color: white; text-decoration: underline;" target="_blank" href="https://en.wikipedia.org/wiki/Harmonograph">Wikipedia page</a>.
+        </p>
+      </sketch-info>
     </aside>
     <canvas id="paper-canvas" resize></canvas>
   </body>
