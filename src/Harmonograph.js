@@ -6,6 +6,7 @@ import { makeNoise3D } from "open-simplex-noise";
 export default class Harmonograph {
     // https://en.wikipedia.org/wiki/Harmonograph
     constructor(canvas_id) {
+        // harmonograph{_a1__160,_f1__3,_p1__0.277,_d1__0.001,_a2__160,_f2__5,_p2__1.94,_d2__0.001,_a3__160,_f3__3,_p3__0,_d3__0.003,_a4__160,_f4__2,_p4__6.283,_d4__0,_strokeWidth__0.5,_t_max__500,_t_incr__0.01,_smoothing__79
         this.params = {
             a1: 160,
             f1: 3,
@@ -13,21 +14,21 @@ export default class Harmonograph {
             d1: 0.001,
             a2: 160,
             f2: 5,
-            p2: 2.979,
-            d2: 0.003,
+            p2: 1.94,
+            d2: 0.001,
             a3: 160,
             f3: 3,
             p3: 0,
-            d3: 0.004,
+            d3: 0.003,
             a4: 160,
             f4: 2,
             p4: 6.283,
             d4: 0.,
             seed: Math.random() * 20000,
-            strokeWidth: 1,
+            strokeWidth: .6,
             t_max: 500,
             t_incr: .01,
-            smoothing: 70,
+            smoothing: 100,
             xMultiplier: 30,
             yMultiplier: 30,
         }
