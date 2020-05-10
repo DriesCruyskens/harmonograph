@@ -89,25 +89,6 @@ export default class Harmonograph {
         this.reset();
     }
 
-    // This function visually updates the dat.gui sliders. Useful after randomize has been called
-    // to see the values and tweak them further. Not doing this after every randomize because it is quite
-    // computationally expensive.
-    updateSliders() {
-        // consolidate all controllers in a single variable for easy iteration
-        // controllers are both on the gui object as in their folder object
-        let controllers = this.gui.__controllers;
-        for (const f in this.gui.__folders) {
-            Array.prototype.push.apply(controllers, this.gui.__folders[f].__controllers);
-        }
-
-        // iterate all controllers and adjusts its value if it exists in this.parameters
-        controllers.forEach(c => {
-            if (this.params[c.property] != undefined) {
-                c.setValue(this.params[c.property])
-            }
-        })
-    }
-
     reset() {
         paper.project.currentStyle = {
             strokeColor: 'black',
@@ -165,128 +146,127 @@ export default class Harmonograph {
     init_gui() {
         this.gui.add(this, 'randomize').name('Randomize');
 
-        this.gui.add(this.params, 't_max', 0, 1000).onChange((value) => {
+        this.gui.add(this.params, 't_max', 0, 1000).listen().onChange((value) => {
             this.params.t_max = value;
             this.reset();
         });
 
-        this.gui.add(this.params, 't_incr', 0.001, 0.04).onChange((value) => {
+        this.gui.add(this.params, 't_incr', 0.001, 0.04).listen().onChange((value) => {
             this.params.t_incr = value;
             this.reset();
         });
 
         let harmonograph = this.gui.addFolder('harmonograph');
 
-        harmonograph.add(this.params, 'a1', 0., 500).step(1).onChange((value) => {
+        harmonograph.add(this.params, 'a1', 0., 500).step(1).listen().onChange((value) => {
             this.params.a1 = value;
             this.reset();
         });
         
-        harmonograph.add(this.params, 'f1', 0., 10.).step(1).onChange((value) => {
+        harmonograph.add(this.params, 'f1', 0., 10.).step(1).listen().onChange((value) => {
             this.params.f1 = value;
             this.reset();
         });
 
-        harmonograph.add(this.params, 'p1', 0., 2 * Math.PI).step(0.001).onChange((value) => {
+        harmonograph.add(this.params, 'p1', 0., 2 * Math.PI).step(0.001).listen().onChange((value) => {
             this.params.p1 = value;
             this.reset();
         });
 
-        harmonograph.add(this.params, 'd1', 0., 0.01).step(0.001).onChange((value) => {
+        harmonograph.add(this.params, 'd1', 0., 0.01).step(0.001).listen().onChange((value) => {
             this.params.d1 = value;
             this.reset();
         });
 
-        harmonograph.add(this.params, 'a2', 0., 500).step(1).onChange((value) => {
+        harmonograph.add(this.params, 'a2', 0., 500).step(1).listen().onChange((value) => {
             this.params.a2 = value;
             this.reset();
         });
         
-        harmonograph.add(this.params, 'f2', 0., 10.).step(1).onChange((value) => {
+        harmonograph.add(this.params, 'f2', 0., 10.).step(1).listen().onChange((value) => {
             this.params.f2 = value;
             this.reset();
         });
 
-        harmonograph.add(this.params, 'p2', 0., 2 * Math.PI).step(0.001).onChange((value) => {
+        harmonograph.add(this.params, 'p2', 0., 2 * Math.PI).step(0.001).listen().onChange((value) => {
             this.params.p2 = value;
             this.reset();
         });
 
-        harmonograph.add(this.params, 'd2', 0., 0.01).step(0.001).onChange((value) => {
+        harmonograph.add(this.params, 'd2', 0., 0.01).step(0.001).listen().onChange((value) => {
             this.params.d2 = value;
             this.reset();
         });
 
-        harmonograph.add(this.params, 'a3', 0., 500).step(1).onChange((value) => {
+        harmonograph.add(this.params, 'a3', 0., 500).step(1).listen().onChange((value) => {
             this.params.a3 = value;
             this.reset();
         });
         
-        harmonograph.add(this.params, 'f3', 0., 10.).step(1).onChange((value) => {
+        harmonograph.add(this.params, 'f3', 0., 10.).step(1).listen().onChange((value) => {
             this.params.f3 = value;
             this.reset();
         });
 
-        harmonograph.add(this.params, 'p3', 0., 2 * Math.PI).step(0.001).onChange((value) => {
+        harmonograph.add(this.params, 'p3', 0., 2 * Math.PI).step(0.001).listen().onChange((value) => {
             this.params.p3 = value;
             this.reset();
         });
 
-        harmonograph.add(this.params, 'd3', 0., 0.01).step(0.001).onChange((value) => {
+        harmonograph.add(this.params, 'd3', 0., 0.01).step(0.001).listen().onChange((value) => {
             this.params.d3 = value;
             this.reset();
         });
 
-        harmonograph.add(this.params, 'a4', 0., 500).step(1).onChange((value) => {
+        harmonograph.add(this.params, 'a4', 0., 500).step(1).listen().onChange((value) => {
             this.params.a4 = value;
             this.reset();
         });
         
-        harmonograph.add(this.params, 'f4', 0., 10.).step(1).onChange((value) => {
+        harmonograph.add(this.params, 'f4', 0., 10.).step(1).listen().onChange((value) => {
             this.params.f4 = value;
             this.reset();
         });
 
-        harmonograph.add(this.params, 'p4', 0., 2 * Math.PI).step(0.001).onChange((value) => {
+        harmonograph.add(this.params, 'p4', 0., 2 * Math.PI).step(0.001).listen().onChange((value) => {
             this.params.p4 = value;
             this.reset();
         });
 
-        harmonograph.add(this.params, 'd4', 0., 0.01).step(0.001).onChange((value) => {
+        harmonograph.add(this.params, 'd4', 0., 0.01).step(0.001).listen().onChange((value) => {
             this.params.d4 = value;
             this.reset();
         });
 
         let noise = this.gui.addFolder('noise');
 
-        noise.add(this.params, 'seed', 0, 20000).step(0.01).onChange((value) => {
+        noise.add(this.params, 'seed', 0, 20000).step(0.01).listen().onChange((value) => {
             this.params.seed = value;
             this.reset();
         });
 
-        noise.add(this.params, 'smoothing', 0, 150).step(0.01).onChange((value) => {
+        noise.add(this.params, 'smoothing', 0, 150).step(0.01).listen().onChange((value) => {
             this.params.smoothing = value;
             this.reset();
         });
 
-        noise.add(this.params, 'xMultiplier', 0, 30).step(0.01).onChange((value) => {
+        noise.add(this.params, 'xMultiplier', 0, 30).step(0.01).listen().onChange((value) => {
             this.params.xMultiplier = value;
             this.reset();
         });
 
-        noise.add(this.params, 'yMultiplier', 0, 30).step(0.01).onChange((value) => {
+        noise.add(this.params, 'yMultiplier', 0, 30).step(0.01).listen().onChange((value) => {
             this.params.yMultiplier = value;
             this.reset();
         });
 
         let style = this.gui.addFolder('style');
 
-        style.add(this.params, 'strokeWidth', .5, 5).onChange((value) => {
+        style.add(this.params, 'strokeWidth', .5, 5).listen().onChange((value) => {
             this.params.strokeWidth = value;
             this.reset();
         });
 
-        this.gui.add(this, 'updateSliders').name('update sliders');
         this.gui.add(this, 'exportSVG').name('Export SVG');
     }
 
